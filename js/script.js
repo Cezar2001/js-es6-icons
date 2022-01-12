@@ -113,46 +113,46 @@ const icone = [
 }
 ];
 
-// let all;
-// let animal;
-// let vegetable;
-// let user;
-
-// const selectType = document.querySelector('.select')
-
-// if (icone.type )
-
-
-const select = icone.filter(function (type) {
-    const tipo = type;
-    return tipo === 'animal' || tipo === 'vegetable' || tipo === 'user';
-})
-
 function getIcon(iconInfo) {
     const {name, prefix, family, color} = iconInfo;
-
-    return `${family} ${prefix}${name} ${color}`
+    
+    return `
+    <i class="${family} ${prefix}${name} ${color}"></i>
+    <p>${name}</p>
+    `
 }
 
 const box = document.querySelector('.container')
 
-icone.forEach((element) => {
-   const newBox = document. createElement('div');
-   newBox.className = `box ${getIcon(element)}`;
-   box.append(newBox, select, element.name);
-//    console.log(newBox.innerHTML);
+icone.forEach((icona) => {
+    box.innerHTML +=  getIcon(icona);
 })
 
+const select = document.querySelector('#tipi')
+select.addEventListener("change", function(){
+    // cancella tutti le icone già presenti
+    box.innerHTML = "";
+    // ottieni il valore selezionato
+    let valoreSelezionato = select.value;
+    // se è all stampa tutto
+    console.log(valoreSelezionato);
+    if(valoreSelezionato==="all"){
+        icone.forEach((icona) => {
+            box.innerHTML +=  getIcon(icona);
+        })        
+    } else{
+        //filtra le icone con quel tipo 
+        // filter ha come parametro una funzione che è vera se voglio prendere l'elemento
+        let iconeDelTipoSelezionato = icone.filter(
+             (icona) => {
+                if(icona.type === valoreSelezionato){return true;} else {return false;}
+             }            
+        )
+        // stampa
+        // ricorda che all'inziao ho cancellato tutto il contenturo di box
+        iconeDelTipoSelezionato.forEach((icona) => {
+            box.innerHTML +=  getIcon(icona);
+        })     
+    }
 
-
-// const select = icone.filter((type) => {
-//     if (type === all) {
-//         return true;
-//     } else if (type === animal){
-//         return true;
-//     } else if (type === vegetable){
-//         return true;
-//     } else if (type === user){
-//         return true;
-//     }
-// })
+})
