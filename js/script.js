@@ -117,8 +117,10 @@ function getIcon(iconInfo) {
     const {name, prefix, family, color} = iconInfo;
     
     return `
+    <div class="boxes">
     <i class="${family} ${prefix}${name} ${color}"></i>
     <p>${name}</p>
+    </div>
     `
 }
 
